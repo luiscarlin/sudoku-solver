@@ -2,12 +2,24 @@
 #include <stdlib.h>
 #include <getopt.h>
 
+struct GlobalArgs {
+    int verbosity;    // -v 
+    char *input;      // -i
+    int pretty_print; // -p
+    int def;
+} globalArgs;
+
+static const char *optString = "i:pvh?";
+
 void print_grid(int array[][9]);
 int solve(int grid[][9], int x, int y); 
 int is_valid_candidate(int grid[][9], int x, int y, int possible_value);
+void print_usage();
+void parse_inputs(int argc, char **argv);
 
 int main(int argc, char **argv) {
-    int opt;
+    parse_inputs(argc, argv);
+
     int grid[9][9] = {{0, 0, 0, 2, 6, 0, 7, 0, 1}, 
                       {6, 8, 0, 0, 7, 0, 0, 9, 0},
                       {1, 9, 0, 0, 0 ,4 ,5 ,0 ,0},
@@ -32,6 +44,42 @@ int main(int argc, char **argv) {
     return found_solution ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
+void parse_inputs(int argc, char **argv) {
+    int opt = 0;
+
+    globalArgs.verbosity = 0;
+    globalArgs.input = NULL;
+    globalArgs.pretty_print = 0;
+    globalArgs.def = 0;
+
+    opt = getopt(argc, argv, optString);
+    while (opt != -1) { 
+        switch (opt) {
+            case 'v':
+                globalArgs.verbosity = 1;
+                break;
+
+            case 'i':
+                globalArgs.input = optarg;
+                break;
+
+            case 'p':
+                globalArgs.pretty_print = 1;
+                break;
+
+            case 'h':
+            case '?':
+                print_usage();
+                break;
+
+            default:
+                break;
+        }
+        opt = getopt(argc, argv, optString);
+    }
+}
+
+
 void print_grid(int array[][9]) {
     printf("-------------------------------\n");
  
@@ -50,6 +98,10 @@ void print_grid(int array[][9]) {
             printf("-------------------------------\n");
         }
     }
+}
+
+void print_usage() { 
+    printf("help - todo");
 }
 
 int solve(int grid[][9], int x, int y) {
