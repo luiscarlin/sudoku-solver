@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 
 void print_grid(int array[][9]);
 int solve(int grid[][9], int x, int y); 
