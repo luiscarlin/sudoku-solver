@@ -49,7 +49,7 @@ Very simple Sudoku solver using backtracking recursion.
         sudoku-solver - solves a sudoku based on input grid
 
     SYNOPSIS
-        sudoku_solver [-i start_grid] [-pvh?]
+        sudoku_solver [-i start_grid] [-pvh]
 
     DESCRIPTION
         -i    start_grid
