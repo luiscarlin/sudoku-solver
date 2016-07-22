@@ -7,10 +7,10 @@ struct GlobalArgs {
     int verbosity;    // -v 
     char *input;      // -i
     int pretty;       // -p
-    int help;         // -h ?
+    int help;         // -h
 } globalArgs;
 
-static const char *optString = "i:pvh?";
+static const char *optString = "i:pvh";
 
 void print_grid(int array[][9], int pretty);
 int solve(int grid[][9], int x, int y); 
@@ -24,6 +24,11 @@ int main(int argc, char **argv) {
 
     parse_args(argc, argv);
     
+    if (globalArgs.help) {
+        print_usage();
+        return EXIT_SUCCESS;
+    }
+ 
     if (!populate_grid(grid)) { 
         printf("Could not populate the grid.\n");
         printf("Check your values\n");
@@ -107,8 +112,7 @@ void parse_args(int argc, char **argv) {
                 break;
 
             case 'h':
-            case '?':
-                print_usage();
+                globalArgs.help = 1;
                 break;
 
             default:
@@ -148,8 +152,20 @@ void print_grid(int array[][9], int pretty) {
     }
 }
 
-void print_usage() { 
-    puts("help - todo");
+void print_usage() {
+    printf("NAME\n");
+    printf("    sudoku-solver - solves a sudoku based on input grid\n");
+    printf("\n"); 
+    printf("SYNOPSIS\n");
+    printf("    sudoku_solver [-i start_grid] [-pvh?]\n");
+    printf("\n");
+    printf("DESCRIPTION\n");
+    printf("    -i    start_grid\n");
+    printf("              Enter the numbers corresponding to the initial state of the sudoku\n");
+    printf("              all in one line. Enter '0' for empty squares.\n");
+    printf("    -p    pretty print\n");
+    printf("    -v    verbose\n");
+    printf("    -h    this help\n");
 }
 
 int solve(int grid[][9], int x, int y) {
