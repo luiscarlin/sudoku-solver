@@ -157,7 +157,7 @@ void print_usage() {
     printf("    sudoku-solver - solves a sudoku based on input grid\n");
     printf("\n"); 
     printf("SYNOPSIS\n");
-    printf("    sudoku_solver [-i start_grid] [-pvh?]\n");
+    printf("    sudoku_solver [-i start_grid] [-pvh]\n");
     printf("\n");
     printf("DESCRIPTION\n");
     printf("    -i    start_grid\n");
