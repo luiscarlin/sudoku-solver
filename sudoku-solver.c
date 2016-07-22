@@ -1,11 +1,13 @@
 #include <stdio.h>
-#include <unistd.h>
+#include <stdlib.h>
+#include <getopt.h>
 
 void print_grid(int array[][9]);
 int solve(int grid[][9], int x, int y); 
 int is_valid_candidate(int grid[][9], int x, int y, int possible_value);
 
-int main() {
+int main(int argc, char **argv) {
+    int opt;
     int grid[9][9] = {{0, 0, 0, 2, 6, 0, 7, 0, 1}, 
                       {6, 8, 0, 0, 7, 0, 0, 9, 0},
                       {1, 9, 0, 0, 0 ,4 ,5 ,0 ,0},
@@ -19,15 +21,15 @@ int main() {
     print_grid(grid);
     
     int found_solution  = solve(grid, 0, 0);
- 
+   
     if (found_solution) { 
         print_grid(grid);
     }
     else {
-        printf("No solution found!\n");
+        printf("No solution found!\n");   
     }
-
-    return 0; 
+    
+    return found_solution ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 void print_grid(int array[][9]) {
