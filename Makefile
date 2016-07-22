@@ -1,6 +1,6 @@
 all: run
 run: build
-	./sudoku-solver
+	./sudoku-solver -p
 build:
 	gcc -std=c11 -Wall sudoku-solver.c -o sudoku-solver
 clean:
