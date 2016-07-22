@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
+#include <string.h>
 
 struct GlobalArgs {
     int verbosity;    // -v 
@@ -15,11 +16,22 @@ void print_grid(int array[][9]);
 int solve(int grid[][9], int x, int y); 
 int is_valid_candidate(int grid[][9], int x, int y, int possible_value);
 void print_usage();
-void parse_inputs(int argc, char **argv);
+void parse_args(int argc, char **argv);
+int populate_grid(int grid[][9]);
 
 int main(int argc, char **argv) {
-    parse_inputs(argc, argv);
+    int grid[9][9];
 
+    parse_args(argc, argv);
+    
+    if (!populate_grid(grid)) { 
+        puts("Could not populate the grid.");
+        puts("Check your values");
+        
+        return EXIT_FAILURE;
+    }
+ 
+    /*
     int grid[9][9] = {{0, 0, 0, 2, 6, 0, 7, 0, 1}, 
                       {6, 8, 0, 0, 7, 0, 0, 9, 0},
                       {1, 9, 0, 0, 0 ,4 ,5 ,0 ,0},
@@ -29,7 +41,8 @@ int main(int argc, char **argv) {
                       {0, 0, 9, 3, 0, 0, 0, 7, 4},
                       {0, 4, 0, 0, 5, 0, 0, 3, 6},
                       {7, 0, 3, 0, 1, 8, 0, 0, 0}};
-    
+    */
+  
     print_grid(grid);
     
     int found_solution  = solve(grid, 0, 0);
@@ -44,7 +57,38 @@ int main(int argc, char **argv) {
     return found_solution ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-void parse_inputs(int argc, char **argv) {
+int populate_grid(int grid[][9]) { 
+    
+    char input[81];
+
+    if (globalArgs.input == NULL) { 
+        printf("Enter the sudoku numbers by using '0' for empty squares:\n");
+        scanf("%s", input); 
+    }
+    else {
+        if (strlen(globalArgs.input) != 81) { 
+            return 0;
+        }
+        strcpy(input, globalArgs.input);
+    }
+
+    if (strlen(input) != 81) {
+        return 0;
+    }
+    
+    int input_index = 0;
+
+    for (int x = 0; x < 9; x++) { 
+        for (int y = 0; y < 9; y++) { 
+            grid[x][y] = input[input_index] - '0';
+            input_index++;
+        }
+    }
+
+    return 1;
+}
+
+void parse_args(int argc, char **argv) {
     int opt = 0;
 
     globalArgs.verbosity = 0;
@@ -79,7 +123,6 @@ void parse_inputs(int argc, char **argv) {
     }
 }
 
-
 void print_grid(int array[][9]) {
     printf("-------------------------------\n");
  
@@ -101,7 +144,7 @@ void print_grid(int array[][9]) {
 }
 
 void print_usage() { 
-    printf("help - todo");
+    puts("help - todo");
 }
 
 int solve(int grid[][9], int x, int y) {
