@@ -40,7 +40,7 @@ done
 echo
 echo Summary
 echo =======
-echo "    Passed = $passed"
-echo "    Failed = $failed"
+echo "Passed = $passed"
+echo "Failed = $failed"
 echo
 

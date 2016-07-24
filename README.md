@@ -43,8 +43,26 @@ Very simple Sudoku solver using backtracking recursion.
     | 7  6  3 | 4  1  8 | 2  5  9 |
     -------------------------------
 
-## Run Tests
+## Run tests
     make test
+
+### Sample run
+    $ make test
+    gcc -std=c11 -Wall sudoku-solver.c -o sudoku-solver
+    ./run-tests.sh tests.txt 
+
+    Running Tests
+    =============
+    Easy 1 ==> Passed
+    Easy 2 ==> Passed
+    Hard 1 ==> Passed
+    Hard 2 ==> Passed
+    World's Hardest ==> Passed
+
+    Summary
+    =======
+    Passed = 5
+    Failed = 0
 
 ## man pages
     $ ./sudoku-solver -h
