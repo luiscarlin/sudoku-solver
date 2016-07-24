@@ -43,6 +43,9 @@ Very simple Sudoku solver using backtracking recursion.
     | 7  6  3 | 4  1  8 | 2  5  9 |
     -------------------------------
 
+## Run Tests
+    make test
+
 ## man pages
     $ ./sudoku-solver -h
     NAME
