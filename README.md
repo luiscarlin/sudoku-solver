@@ -64,7 +64,7 @@ Very simple Sudoku solver using backtracking recursion.
     Passed = 5
     Failed = 0
 
-## man pages
+## man page
     $ ./sudoku-solver -h
     NAME
         sudoku-solver - solves a sudoku based on input grid
