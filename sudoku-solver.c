@@ -130,7 +130,11 @@ void print_grid(int array[][9], int pretty) {
             printf("|");
 
             for (int y = 0; y < 9; y++) { 
-                printf(" %d ", array[x][y]);
+                if(array[x][y] == 0) {
+                    printf("   ");
+                } else {
+                    printf(" %d ", array[x][y]);
+                }
                 if ((y + 1) % 3 == 0) { 
                     printf("|");
                 }
